@@ -8,9 +8,6 @@ Route::get('/', function(){
     return redirect()->route('login');
 });
 Route::get('/switch-lang/{langCode}', [AccountController::class, 'switchLang']);
-
-// Auth::routes(['register' => false]);
-Auth::routes();
 Route::post('/reset-password', [AccountController::class, 'resetPassword'])->name('password.reset.update');
 Route::post('register-exhibitor', [AccountController::class, 'registerExhibitor'])->name('registerExhibitor');
 Route::post('register-admin', [AccountController::class, 'registerAdmin'])->name('registerAdmin');
