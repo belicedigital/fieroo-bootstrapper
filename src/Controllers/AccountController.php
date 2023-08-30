@@ -1,0 +1,174 @@
+<?php
+
+namespace Fieroo\Bootstrapper\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Fieroo\Bootstrapper\Rules\MatchOldPassword;
+use Fieroo\Bootstrapper\Models\Setting;
+use Fieroo\Bootstrapper\Models\User;
+use Spatie\Permission\Models\Permission;
+use Fieroo\Exhibitors\Models\Exhibitor;
+use Session;
+use DB;
+use Validator;
+use Hash;
+use Auth;
+use Mail;
+use Response;
+use App;
+
+class AccountController extends Controller
+{
+    public function confirmAccount($id)
+    {
+        Auth::logout();
+        $user = User::find($id);
+
+        if(strlen($user->email_verified_at) > 0) {
+            return view('auth.confirm-error')->with('error', 'Questo utente è già stato verificato');
+        }
+
+        return view('auth.confirm', ['user' => $user]);
+    }
+
+    public function setPassword(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+
+        $validator = Validator::make($request->all(), [
+            'password' => ['required', 'string', 'min:8'],
+            'new_password' => ['required', 'string', 'min:8', 'confirmed', 'different:password'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user->update(['password'=> Hash::make($request->new_password), 'email_verified_at' => now()]);
+
+        return redirect('login');
+    }
+
+    public function switchLang($lang) {
+        App::setLocale($lang);
+        Session::put('locale', $lang);
+        return redirect()->back();
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'email:rfc,dns', 'exists:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        try {
+            $user = User::where('email', '=', $request->email)->first();
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return redirect('login')->with('success', trans('messages.password_changed'));
+        } catch(\Exception $e) {
+            return redirect()
+                ->back()
+                ->withErrors($e->getMessage());
+        }
+    }
+
+    public function registerExhibitor(Request $request)
+    {
+        try {
+            $validation_data = [
+                'email' => ['required', 'email', 'unique:exhibitors_data,email_responsible', 'unique:users,email'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'localization' => ['required', 'string', 'max:2']
+            ];
+    
+            $validator = Validator::make($request->all(), $validation_data);
+    
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            // create user & relative exhibitor
+            $user = User::create([
+                'name' => $request->email,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
+            $exhibitor = Exhibitor::create([
+                'user_id' => $user->id,
+                'locale' => $request->localization
+            ]);
+            $user->assignRole('espositore') && $user->givePermissionTo('expo');
+            
+            $setting = Setting::take(1)->first();
+            $body = formatDataForEmail([
+                'name' => $request->email,
+                'admin_url' => env('ADMIN_URL'),
+            ], $request->localization == 'it' ? $setting->email_registration_it : $setting->email_registration_en);
+
+            $data = [
+                'body' => $body
+            ];
+
+            $subject = trans('emails.register', [], $request->localization);
+            $email_from = env('MAIL_FROM_ADDRESS');
+            $email_to = $request->email;
+            Mail::send('emails.form-data', ['data' => $data], function ($m) use ($email_from, $email_to, $subject) {
+                $m->from($email_from, env('MAIL_FROM_NAME'));
+                $m->to($email_to)->subject(env('APP_NAME').' '.$subject);
+            });
+
+            return redirect()->route('login');
+
+        } catch(\Exception $e) {
+            return redirect()
+                    ->back()
+                    ->withErrors($e->getMessage());
+        }
+    }
+
+    public function registerAdmin(Request $request)
+    {
+        try {
+            $validation_data = [
+                'email' => ['required', 'email', 'unique:users,email'],
+                'password' => ['required', 'string', 'min:8', 'confirmed']
+            ];
+    
+            $validator = Validator::make($request->all(), $validation_data);
+    
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            $user = User::create([
+                'name' => $request->email,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
+            $user->assignRole('super-admin') && $user->givePermissionTo(Permission::all());
+
+            return redirect()->route('login');
+
+        } catch(\Exception $e) {
+            return redirect()
+                    ->back()
+                    ->withErrors($e->getMessage());
+        }
+    }
+}
