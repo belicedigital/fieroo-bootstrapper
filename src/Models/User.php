@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Fieroo\Exhibitors\Models\Exhibitor;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -47,5 +48,16 @@ class User extends Authenticatable
     public function exhibitor()
     {
         return $this->hasOne(Exhibitor::class);
+    }
+
+    public function getRedirectRoute()
+    {
+        if(Auth::user()->roles->first()->name == 'espositore') {
+            dd(Auth::user()->exhibitor->detail);
+            $user = User::findOrFail(Auth::user()->id);
+            if(is_null($user->exhibitor->detail)) {
+                return redirect()->route('compile-data-after-login');
+            }
+        }
     }
 }
