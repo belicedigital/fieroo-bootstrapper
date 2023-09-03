@@ -95,6 +95,8 @@ class SettingsController extends Controller
             'email_event_subscription_en' => ['required'],
             'email_registration_it' => ['required'],
             'email_registration_en' => ['required'],
+            'email_remarketing_it' => ['required'],
+            'email_remarketing_en' => ['required'],
         ];
 
         $validator = Validator::make($request->all(), $validation_data);
@@ -121,6 +123,8 @@ class SettingsController extends Controller
                 'email_event_subscription_en' => $request->email_event_subscription_en,
                 'email_registration_it' => $request->email_registration_it,
                 'email_registration_en' => $request->email_registration_en,
+                'email_remarketing_it' => $request->email_registration_it,
+                'email_remarketing_en' => $request->email_remarketing_en,
                 'updated_at' => DB::raw('NOW()')
             ]);
             return redirect()->back()->with('success', trans('forms.saved_success'));

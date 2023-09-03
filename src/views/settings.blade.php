@@ -100,6 +100,14 @@
                                             <textarea name="email_registration_en" class="form-control summernote" rows="10">{!! $settings->email_registration_en !!}</textarea>
                                         </div>
                                         <div class="form-group">
+                                            <strong>{{ trans('forms.text_email_remarketing_it') }}</strong>
+                                            <textarea name="email_remarketing_it" class="form-control summernote" rows="10">{!! $settings->email_remarketing_it !!}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <strong>{{ trans('forms.text_email_remarketing_en') }}</strong>
+                                            <textarea name="email_remarketing_en" class="form-control summernote" rows="10">{!! $settings->email_remarketing_en !!}</textarea>
+                                        </div>
+                                        <div class="form-group">
                                             <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> {{ trans('generals.save') }}</button>
                                         </div>
                                     </form>
