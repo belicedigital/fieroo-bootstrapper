@@ -4,7 +4,8 @@ namespace Fieroo\Bootstrapper\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Fieroo\Bootstrapper\Rules\MatchOldPassword;
+// use Fieroo\Bootstrapper\Rules\MatchOldPassword;
+use App\Rules\MatchOldPassword;
 use Fieroo\Bootstrapper\Models\User;
 use Validator;
 use Hash;

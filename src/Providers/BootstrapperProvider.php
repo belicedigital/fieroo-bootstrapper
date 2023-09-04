@@ -18,6 +18,8 @@ class BootstrapperProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../views', 'bootstrapper');
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'yourpackage');
         
     }
 }
