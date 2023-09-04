@@ -201,7 +201,8 @@
         $('#spinner').toggleClass('d-none');
         common_request.post('/admin/profile/change-password', {
             password: $('input[name="password"]').val(),
-            new_password: $('input[name="new_password"]').val()
+            new_password: $('input[name="new_password"]').val(),
+            new_password_confirmation: $('input[name="new_password_confirmation"]').val(),
         })
         .then(response => {
             $(el).toggleClass('d-none');
@@ -251,7 +252,8 @@
             receiver_vat_number: $('input[name="receiver_vat_number"]').val(),
             receiver_uni_code: $('input[name="receiver_uni_code"]').val(),
             password: $('input[name="password"]').val(),
-            new_password: $('input[name="new_password"]').val()
+            new_password: $('input[name="new_password"]').val(),
+            new_password_confirmation: $('input[name="new_password_confirmation"]').val(),
         })
         .then(response => {
             $(el).toggleClass('d-none');
