@@ -59,6 +59,7 @@ class ProfileController extends Controller
             ]);
     
             if ($validator->fails()) {
+                dd($validator->errors()->all());
                 $response['message'] = trans('api.error_validation');
                 return response()->json($response);
             }
