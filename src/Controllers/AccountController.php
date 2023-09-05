@@ -50,7 +50,6 @@ class AccountController extends Controller
     }
 
     public function switchLang($lang) {
-        dd($lang);
         App::setLocale($lang);
         Session::put('locale', $lang);
         return redirect()->back();
