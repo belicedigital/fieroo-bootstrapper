@@ -4,7 +4,6 @@ namespace Fieroo\Bootstrapper\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-// use Fieroo\Bootstrapper\Rules\MatchOldPassword;
 use Fieroo\Bootstrapper\Models\Setting;
 use Fieroo\Bootstrapper\Models\User;
 use Spatie\Permission\Models\Permission;
@@ -51,6 +50,7 @@ class AccountController extends Controller
     }
 
     public function switchLang($lang) {
+        dd($lang);
         App::setLocale($lang);
         Session::put('locale', $lang);
         return redirect()->back();
