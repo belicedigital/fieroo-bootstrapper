@@ -14,16 +14,6 @@ use Carbon\Carbon;
 class SettingsController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -42,7 +32,8 @@ class SettingsController extends Controller
     public function saveSettingsGenerals(Request $request)
     {
         $validation_data = [
-            'file' => ['mimes:jpeg,bmp,png,gif']
+            'file' => ['mimes:jpeg,bmp,png,gif'],
+            'iva' => ['numeric'],
         ];
 
         $validator = Validator::make($request->all(), $validation_data);
@@ -56,6 +47,7 @@ class SettingsController extends Controller
 
         try {
             $data = [
+                'iva' => $request->iva,
                 'updated_at' => DB::raw('NOW()')
             ];
             if($request->hasFile('file')) {

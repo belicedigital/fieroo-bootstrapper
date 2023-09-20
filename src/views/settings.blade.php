@@ -36,6 +36,10 @@
                                             <input type="file" name="file" class="form-control" value="{{ old('file') }}" accept="image/png, image/gif, image/jpeg, image/bmp">
                                         </div>
                                         <div class="form-group">
+                                            <strong>{{trans('forms.select_iva')}}</strong>
+                                            <input type="number" step=".01" name="iva" class="form-control" value="{{ $settings->iva }}">
+                                        </div>
+                                        <div class="form-group">
                                             <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> {{ trans('generals.save') }}</button>
                                         </div>
                                     </form>
