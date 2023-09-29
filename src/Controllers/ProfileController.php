@@ -5,7 +5,6 @@ namespace Fieroo\Bootstrapper\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Fieroo\Bootstrapper\Rules\MatchOldPassword;
-// use App\Rules\MatchOldPassword;
 use Fieroo\Bootstrapper\Models\User;
 use Validator;
 use Hash;
@@ -14,16 +13,6 @@ use DB;
 
 class ProfileController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
     /**
      * Display a listing of the resource.
      *
@@ -113,7 +102,7 @@ class ProfileController extends Controller
             ];
     
             $validator = Validator::make($request->all(), $validation_data);
-    
+
             if ($validator->fails()) {
                 $response['message'] = trans('api.error_validation');
                 return response()->json($response);
