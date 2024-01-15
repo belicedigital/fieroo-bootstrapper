@@ -16,6 +16,7 @@ use Auth;
 use Mail;
 use Response;
 use App;
+use Illuminate\Support\Facades\Artisan;
 
 class AccountController extends Controller
 {
@@ -141,6 +142,10 @@ class AccountController extends Controller
     public function registerAdmin(Request $request)
     {
         try {
+            Artisan::call('migrate');
+            Artisan::call('db:seed');
+            Artisan::call('key:generate');
+
             $validation_data = [
                 'email' => ['required', 'email', 'unique:users,email'],
                 'password' => ['required', 'string', 'min:8', 'confirmed']
