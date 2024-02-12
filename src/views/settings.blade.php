@@ -342,7 +342,7 @@
                         data: null,
                         render: function(data, type, row) {
                             let destroy_href =
-                                'https://manager-fieroo.belicedigital.com/api/stripe/cancel-subscription';
+                                'http://127.0.0.1:8081/api/stripe/cancel-subscription';
                             let subscription_id = row['id']
                             let subscription_type = row['type']
                             return `
