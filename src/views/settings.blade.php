@@ -289,7 +289,10 @@
                     //     "email": $('input[name="auth-email"]').val()
                     // }),
                     data: function(d) {
-                        d.email = $('input[name="auth-email"]').val();
+                        const formData = new FormData();
+                        formData.append('email', $('input[name="auth-email"]').val());
+                        return formData;
+                        // d.email = $('input[name="auth-email"]').val();
                     },
                     contetType: false,
                     processData: false,
