@@ -280,7 +280,8 @@
                 "autoWidth": false,
                 "responsive": false,
                 ajax: {
-                    url: "http://127.0.0.1:8081/api/stripe/subscriptions",
+                    url: "http://127.0.0.1:8081/api/stripe/" + $('input[name="auth-email"]').val() +
+                        "/subscriptions",
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -288,12 +289,12 @@
                     // data: JSON.stringify({
                     //     "email": $('input[name="auth-email"]').val()
                     // }),
-                    data: function(d) {
-                        const formData = new FormData();
-                        formData.append('email', $('input[name="auth-email"]').val());
-                        return formData;
-                        // d.email = $('input[name="auth-email"]').val();
-                    },
+                    // data: function(d) {
+                    //     const formData = new FormData();
+                    //     formData.append('email', $('input[name="auth-email"]').val());
+                    //     return formData;
+                    //     // d.email = $('input[name="auth-email"]').val();
+                    // },
                     contetType: false,
                     processData: false,
                     dataSrc: 'subscriptions',
