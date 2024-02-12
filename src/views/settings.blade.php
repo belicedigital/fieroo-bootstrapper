@@ -280,7 +280,7 @@
                 "autoWidth": false,
                 "responsive": false,
                 ajax: {
-                    url: "http://127.0.0.1:8000/api/stripe/subscriptions",
+                    url: "http://127.0.0.1:8081/api/stripe/subscriptions",
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
