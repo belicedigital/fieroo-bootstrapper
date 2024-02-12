@@ -349,7 +349,6 @@
                                 <div class="btn-group" role="group">
                                     <form action=${destroy_href} method="POST">
                                         @csrf
-                                        @method('DELETE')
                                         <input type="hidden" name="id" value=${subscription_id}>
                                         <input type="hidden" name="type" value=${subscription_type}>
                                         <button data-toggle="tooltip" data-placement="top" title="{{ trans('generals.cancel') }}" class="btn btn-default" type="submit"><i class="fa fa-times"></i></button>
