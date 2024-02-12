@@ -21,7 +21,7 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = Setting::take(1)->first();
-        return view('bootstrapper::settings', ['settings' => $settings]);
+        return view('bootstrapper::settings', ['settings' => $settings, 'email' => Auth::user()->email]);
     }
 
     private function _updateData($data)

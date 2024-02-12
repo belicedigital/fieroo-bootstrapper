@@ -26,6 +26,12 @@
                                     role="tab" aria-controls="settings-tab-email"
                                     aria-selected="false">{{ trans('generals.email_texts') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="settings-tab-subscriptions" data-toggle="pill"
+                                    href="#settings-tab-subscription" role="tab"
+                                    aria-controls="settings-tab-subscription"
+                                    aria-selected="false">{{ trans('generals.subscription_texts') }}</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -83,8 +89,8 @@
                                                         href="#list-registration" role="tab"
                                                         aria-controls="registration">{{ trans('forms.registration_email_item') }}</a>
                                                     <a class="list-group-item list-group-item-action"
-                                                        id="list-marketing-list" data-toggle="list" href="#list-marketing"
-                                                        role="tab"
+                                                        id="list-marketing-list" data-toggle="list"
+                                                        href="#list-marketing" role="tab"
                                                         aria-controls="marketing">{{ trans('forms.marketing_email_item') }}</a>
                                                 </div>
                                             </div>
@@ -208,6 +214,27 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="tab-pane fade" id="settings-tab-subscription" role="tabpanel"
+                                aria-labelledby="settings-tab-subscriptions">
+                                <input type="hidden" name="auth-email" value="{{ $email }}">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-hover text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ trans('tables.type') }}</th>
+                                                    <th>{{ trans('tables.status') }}</th>
+                                                    <th>{{ trans('tables.trial_ends_at') }}</th>
+                                                    <th>{{ trans('tables.ends_at') }}</th>
+                                                    <th>{{ trans('tables.created_at') }}</th>
+                                                    <th>{{ trans('tables.updated_ata') }}</th>
+                                                    <th class="no-sort">{{ trans('tables.actions') }}</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -218,9 +245,146 @@
 @endsection
 @section('scripts')
     <script>
+        // const initSubscriptions = () => {
+        //     common_request.post('https://manager-fieroo.belicedigital.com/api/stripe/subscriptions', {
+        //             email: $('input[name="auth-email"]').val(),
+        //         })
+        //         .then(response => {
+        //             let data = response.data
+        //             if (data.status) {
+
+        //             } else {
+        //                 toastr.error(data.message)
+        //             }
+        //         })
+        //         .catch(error => {
+        //             toastr.error(error)
+        //             console.log(error)
+        //         })
+        // }
+
         $(document).ready(function() {
             $('.summernote').summernote();
             $('.note-btn-group.btn-group.note-insert').hide()
+            // initSubscriptions()
+
+
+            $('table').DataTable({
+                processing: true,
+                serverSide: true,
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": false,
+                "autoWidth": false,
+                "responsive": false,
+                ajax: {
+                    url: "https://manager-fieroo.belicedigital.com/api/stripe/subscriptions",
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    data: JSON.stringify({
+                        "email": $('input[name="auth-email"]').val()
+                    }),
+                    dataSrc: 'subscriptions',
+                },
+                drawCallback: function() {
+                    $('[data-toggle="tooltip"]').tooltip()
+                    $('form button').on('click', function(e) {
+                        var $this = $(this);
+                        e.preventDefault();
+                        Swal.fire({
+                            title: "{!! trans('generals.confirm_remove') !!}",
+                            showCancelButton: true,
+                            confirmButtonText: "{{ trans('generals.confirm') }}",
+                            cancelButtonText: "{{ trans('generals.cancel') }}",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $this.closest('form').submit();
+                            }
+                        })
+                    });
+                },
+                createdRow: function(row, data, index) {
+                    // $(row).attr({
+                    //     'data-id': data['id']
+                    // })
+                },
+                columns: [{
+                        data: 'type'
+                    },
+                    {
+                        data: 'stripe_status'
+                    },
+                    {
+                        data: 'trial_ends_at'
+                    },
+                    {
+                        data: 'ends_at'
+                    },
+                    {
+                        data: 'created_at'
+                    },
+                    {
+                        data: 'updated_at'
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            let destroy_href =
+                                'https://manager-fieroo.belicedigital.com/api/stripe/cancel-subscription';
+                            let subscription_id = row['id']
+                            let subscription_type = row['type']
+                            return `
+                                <div class="btn-group" role="group">
+                                    <form action=${destroy_href} method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="id" value=${subscription_id}>
+                                        <input type="hidden" name="type" value=${subscription_type}>
+                                        <button data-toggle="tooltip" data-placement="top" title="{{ trans('generals.cancel') }}" class="btn btn-default" type="submit"><i class="fa fa-times"></i></button>
+                                    </form>
+                                </div>
+                                `
+                        }
+                    }
+                    // {
+                    //     data: null,
+                    //     render: function(data, type, row) {
+                    //         let destroy_href =
+                    //             '{{ route('exhibitors-incomplete.destroy', ':id') }}';
+                    //         destroy_href = destroy_href.replace(':id', row['id']);
+                    //         return `
+                //         <div class="btn-group" role="group">
+                //             <a data-toggle="tooltip" data-placement="top" title="{{ trans('generals.send_remarketing') }}" onclick="sendRemarketing(${row['id']})" href="javascript:void(0);" class="btn btn-default"><i class="far fa-paper-plane"></i></a>
+                //             <form action=${destroy_href} method="POST">
+                //                 @csrf
+                //                 @method('DELETE')
+                //                 <button data-toggle="tooltip" data-placement="top" title="{{ trans('generals.delete') }}" class="btn btn-default" type="submit"><i class="fa fa-trash"></i></button>
+                //             </form>
+                //         </div>
+                //         `
+                    //     }
+                    // }
+
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    targets: "no-sort"
+                }],
+                "oLanguage": {
+                    "sSearch": "{{ trans('generals.search') }}",
+                    "oPaginate": {
+                        "sFirst": "{{ trans('generals.start') }}", // This is the link to the first page
+                        "sPrevious": "«", // This is the link to the previous page
+                        "sNext": "»", // This is the link to the next page
+                        "sLast": "{{ trans('generals.end') }}" // This is the link to the last page
+                    }
+                }
+            });
+
         });
     </script>
 @endsection
