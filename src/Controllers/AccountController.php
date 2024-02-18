@@ -16,6 +16,7 @@ use Auth;
 use Mail;
 use Response;
 use App;
+use Illuminate\Support\Facades\Http;
 
 class AccountController extends Controller
 {
@@ -97,6 +98,16 @@ class AccountController extends Controller
                     ->back()
                     ->withErrors($validator)
                     ->withInput();
+            }
+
+            // check events limit for subscription
+            $request_to_api = Http::get('https://manager-fieroo.belicedigital.com/api/stripe/'.env('CUSTOMER_EMAIL').'/check-limit/max_exhibitors');
+            if (!$request_to_api->successful()) {
+                throw new \Exception('API Error on get latest subscription');
+            }
+            $result_api = $request_to_api->json();
+            if(Exhibitor::all()->count() >= $result_api->value) {
+                throw new \Exception('Non è possibile eseguire la richiesta, il limite di Espositori attivi in piattaforma è stato superato. Contattare l\'Amministrazione per chiarimenti.');
             }
 
             // create user & relative exhibitor
