@@ -245,29 +245,9 @@
 @endsection
 @section('scripts')
     <script>
-        // const initSubscriptions = () => {
-        //     common_request.post('https://manager-fieroo.belicedigital.com/api/stripe/subscriptions', {
-        //             email: $('input[name="auth-email"]').val(),
-        //         })
-        //         .then(response => {
-        //             let data = response.data
-        //             if (data.status) {
-
-        //             } else {
-        //                 toastr.error(data.message)
-        //             }
-        //         })
-        //         .catch(error => {
-        //             toastr.error(error)
-        //             console.log(error)
-        //         })
-        // }
-
         $(document).ready(function() {
             $('.summernote').summernote();
             $('.note-btn-group.btn-group.note-insert').hide()
-            // initSubscriptions()
-
 
             $('table').DataTable({
                 processing: true,
@@ -280,21 +260,13 @@
                 "autoWidth": false,
                 "responsive": false,
                 ajax: {
-                    url: "http://127.0.0.1:8081/api/stripe/" + $('input[name="auth-email"]').val() +
+                    url: "https://manager-fieroo.belicedigital.com/api/stripe/" + $(
+                            'input[name="auth-email"]').val() +
                         "/subscriptions",
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     },
-                    // data: JSON.stringify({
-                    //     "email": $('input[name="auth-email"]').val()
-                    // }),
-                    // data: function(d) {
-                    //     const formData = new FormData();
-                    //     formData.append('email', $('input[name="auth-email"]').val());
-                    //     return formData;
-                    //     // d.email = $('input[name="auth-email"]').val();
-                    // },
                     contetType: false,
                     processData: false,
                     dataSrc: 'subscriptions',
@@ -343,7 +315,7 @@
                         data: null,
                         render: function(data, type, row) {
                             let destroy_href =
-                                'http://127.0.0.1:8081/api/stripe/cancel-subscription';
+                                'https://manager-fieroo.belicedigital.com/api/stripe/cancel-subscription';
                             let subscription_id = row['id']
                             let subscription_type = row['type']
                             return `
@@ -358,25 +330,6 @@
                                 `
                         }
                     }
-                    // {
-                    //     data: null,
-                    //     render: function(data, type, row) {
-                    //         let destroy_href =
-                    //             '{{ route('exhibitors-incomplete.destroy', ':id') }}';
-                    //         destroy_href = destroy_href.replace(':id', row['id']);
-                    //         return `
-                //         <div class="btn-group" role="group">
-                //             <a data-toggle="tooltip" data-placement="top" title="{{ trans('generals.send_remarketing') }}" onclick="sendRemarketing(${row['id']})" href="javascript:void(0);" class="btn btn-default"><i class="far fa-paper-plane"></i></a>
-                //             <form action=${destroy_href} method="POST">
-                //                 @csrf
-                //                 @method('DELETE')
-                //                 <button data-toggle="tooltip" data-placement="top" title="{{ trans('generals.delete') }}" class="btn btn-default" type="submit"><i class="fa fa-trash"></i></button>
-                //             </form>
-                //         </div>
-                //         `
-                    //     }
-                    // }
-
                 ],
                 columnDefs: [{
                     orderable: false,
