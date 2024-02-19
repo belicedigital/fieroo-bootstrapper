@@ -121,6 +121,17 @@ class AccountController extends Controller
                 'locale' => $request->localization
             ]);
             $user->assignRole('espositore') && $user->givePermissionTo('expo');
+
+            // notify admin for reaching the limit of exhibitors
+            if(Exhibitor::all()->count() == $result_api->value) {
+                $email_from = env('MAIL_FROM_ADDRESS');
+                $email_to = env('CUSTOMER_EMAIL');
+                $subject = trans('emails.exhibitors_limit', [], $request->localization);
+                Mail::send('emails.notify-to-exhibitors-limit', [], function ($m) use ($email_from, $email_to, $subject) {
+                    $m->from($email_from, env('MAIL_FROM_NAME'));
+                    $m->to($email_to)->subject(env('APP_NAME').' '.$subject);
+                });
+            }
             
             $setting = Setting::take(1)->first();
             $body = formatDataForEmail([
