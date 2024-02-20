@@ -219,19 +219,21 @@
                                 <input type="hidden" name="auth-email" value="{{ $email }}">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <table class="table table-hover text-nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th>{{ trans('tables.type') }}</th>
-                                                    <th>{{ trans('tables.status') }}</th>
-                                                    <th>{{ trans('tables.trial_ends_at') }}</th>
-                                                    <th>{{ trans('tables.ends_at') }}</th>
-                                                    <th>{{ trans('tables.created_at') }}</th>
-                                                    <th>{{ trans('tables.updated_ata') }}</th>
-                                                    <th class="no-sort">{{ trans('tables.actions') }}</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
+                                        <div class="table-responsive p-3">
+                                            <table class="table table-hover text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{ trans('tables.type') }}</th>
+                                                        <th>{{ trans('tables.status') }}</th>
+                                                        <th>{{ trans('tables.trial_ends_at') }}</th>
+                                                        <th>{{ trans('tables.ends_at') }}</th>
+                                                        <th>{{ trans('tables.created_at') }}</th>
+                                                        <th>{{ trans('tables.updated_a') }}</th>
+                                                        <th class="no-sort">{{ trans('tables.actions') }}</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -252,7 +254,7 @@
             $('table').DataTable({
                 processing: true,
                 serverSide: true,
-                "paging": true,
+                "paging": false,
                 "lengthChange": false,
                 "searching": false,
                 "ordering": true,
@@ -288,11 +290,11 @@
                         })
                     });
                 },
-                createdRow: function(row, data, index) {
-                    // $(row).attr({
-                    //     'data-id': data['id']
-                    // })
-                },
+                // createdRow: function(row, data, index) {
+                //     // $(row).attr({
+                //     //     'data-id': data['id']
+                //     // })
+                // },
                 columns: [{
                         data: 'type'
                     },
