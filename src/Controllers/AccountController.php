@@ -103,10 +103,10 @@ class AccountController extends Controller
             // check events limit for subscription
             $request_to_api = Http::get('https://manager-fieroo.belicedigital.com/api/stripe/'.env('CUSTOMER_EMAIL').'/check-limit/max_exhibitors');
             if (!$request_to_api->successful()) {
-                throw new \Exception('API Error on get latest subscription');
+                throw new \Exception('API Error on get latest subscription '.$request_to_api->body());
             }
             $result_api = $request_to_api->json();
-            if(Exhibitor::all()->count() >= $result_api->value) {
+            if(isset($result_api['value']) && Exhibitor::all()->count() >= $result_api['value']) {
                 throw new \Exception('Non è possibile eseguire la richiesta, il limite di Espositori attivi in piattaforma è stato superato. Contattare l\'Amministrazione per chiarimenti.');
             }
 
@@ -123,7 +123,7 @@ class AccountController extends Controller
             $user->assignRole('espositore') && $user->givePermissionTo('expo');
 
             // notify admin for reaching the limit of exhibitors
-            if(Exhibitor::all()->count() == $result_api->value) {
+            if(Exhibitor::all()->count() == $result_api['value']) {
                 $email_from = env('MAIL_FROM_ADDRESS');
                 $email_to = env('CUSTOMER_EMAIL');
                 $subject = trans('emails.exhibitors_limit', [], $request->localization);
