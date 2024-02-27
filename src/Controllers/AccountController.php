@@ -84,22 +84,22 @@ class AccountController extends Controller
 
     public function registerExhibitor(Request $request)
     {
-        try {
-            $validation_data = [
-                'email' => ['required', 'email', 'unique:exhibitors_data,email_responsible', 'unique:users,email'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-                'localization' => ['required', 'string', 'max:2']
-            ];
-    
-            $validator = Validator::make($request->all(), $validation_data);
-    
-            if ($validator->fails()) {
-                return redirect()
-                    ->back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
+        $validation_data = [
+            'email' => ['required', 'email', 'unique:exhibitors_data,email_responsible', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'localization' => ['required', 'string', 'max:2']
+        ];
 
+        $validator = Validator::make($request->all(), $validation_data);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        try {
             if(!env('UNLIMITED')) {
                 // check events limit for subscription
                 $request_to_api = Http::get('https://manager-fieroo.belicedigital.com/api/stripe/'.env('CUSTOMER_EMAIL').'/check-limit/max_exhibitors');
@@ -166,20 +166,21 @@ class AccountController extends Controller
 
     public function registerAdmin(Request $request)
     {
+        $validation_data = [
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
+        ];
+
+        $validator = Validator::make($request->all(), $validation_data);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
         try {
-            $validation_data = [
-                'email' => ['required', 'email', 'unique:users,email'],
-                'password' => ['required', 'string', 'min:8', 'confirmed']
-            ];
-    
-            $validator = Validator::make($request->all(), $validation_data);
-    
-            if ($validator->fails()) {
-                return redirect()
-                    ->back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
 
             $user = User::create([
                 'name' => $request->email,
