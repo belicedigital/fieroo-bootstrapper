@@ -85,7 +85,6 @@ class AccountController extends Controller
     public function registerExhibitor(Request $request)
     {
         try {
-            dd('ciao');
             $validation_data = [
                 'email' => ['required', 'email', 'unique:exhibitors_data,email_responsible', 'unique:users,email'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -101,14 +100,16 @@ class AccountController extends Controller
                     ->withInput();
             }
 
-            // check events limit for subscription
-            $request_to_api = Http::get('https://manager-fieroo.belicedigital.com/api/stripe/'.env('CUSTOMER_EMAIL').'/check-limit/max_exhibitors');
-            if (!$request_to_api->successful()) {
-                throw new \Exception('API Error on get latest subscription '.$request_to_api->body());
-            }
-            $result_api = $request_to_api->json();
-            if(isset($result_api['value']) && Exhibitor::all()->count() >= $result_api['value']) {
-                throw new \Exception('Non è possibile eseguire la richiesta, il limite di Espositori attivi in piattaforma è stato superato. Contattare l\'Amministrazione per chiarimenti.');
+            if(!env('UNLIMITED')) {
+                // check events limit for subscription
+                $request_to_api = Http::get('https://manager-fieroo.belicedigital.com/api/stripe/'.env('CUSTOMER_EMAIL').'/check-limit/max_exhibitors');
+                if (!$request_to_api->successful()) {
+                    throw new \Exception('API Error on get latest subscription '.$request_to_api->body());
+                }
+                $result_api = $request_to_api->json();
+                if(isset($result_api['value']) && Exhibitor::all()->count() >= $result_api['value']) {
+                    throw new \Exception('Non è possibile eseguire la richiesta, il limite di Espositori attivi in piattaforma è stato superato. Contattare l\'Amministrazione per chiarimenti.');
+                }
             }
 
             // create user & relative exhibitor
@@ -123,15 +124,17 @@ class AccountController extends Controller
             ]);
             $user->assignRole('espositore') && $user->givePermissionTo('expo');
 
-            // notify admin for reaching the limit of exhibitors
-            if(Exhibitor::all()->count() == $result_api['value']) {
-                $email_from = env('MAIL_FROM_ADDRESS');
-                $email_to = env('CUSTOMER_EMAIL');
-                $subject = trans('emails.exhibitors_limit', [], $request->localization);
-                Mail::send('emails.notify-to-exhibitors-limit', [], function ($m) use ($email_from, $email_to, $subject) {
-                    $m->from($email_from, env('MAIL_FROM_NAME'));
-                    $m->to($email_to)->subject(env('APP_NAME').' '.$subject);
-                });
+            if(!env('UNLIMITED')) {
+                // notify admin for reaching the limit of exhibitors
+                if(Exhibitor::all()->count() == $result_api['value']) {
+                    $email_from = env('MAIL_FROM_ADDRESS');
+                    $email_to = env('CUSTOMER_EMAIL');
+                    $subject = trans('emails.exhibitors_limit', [], $request->localization);
+                    Mail::send('emails.notify-to-exhibitors-limit', [], function ($m) use ($email_from, $email_to, $subject) {
+                        $m->from($email_from, env('MAIL_FROM_NAME'));
+                        $m->to($email_to)->subject(env('APP_NAME').' '.$subject);
+                    });
+                }
             }
             
             $setting = Setting::take(1)->first();
