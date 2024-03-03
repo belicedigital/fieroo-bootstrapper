@@ -275,7 +275,7 @@
                 },
                 drawCallback: function() {
                     $('[data-toggle="tooltip"]').tooltip()
-                    $('form button').on('click', function(e) {
+                    $('form button[data-type="subscription-form"]').on('click', function(e) {
                         var $this = $(this);
                         e.preventDefault();
                         Swal.fire({
@@ -326,7 +326,7 @@
                                         @csrf
                                         <input type="hidden" name="id" value=${subscription_id}>
                                         <input type="hidden" name="type" value=${subscription_type}>
-                                        <button data-toggle="tooltip" data-placement="top" title="{{ trans('generals.cancel') }}" class="btn btn-default" type="submit"><i class="fa fa-times"></i></button>
+                                        <button data-type="subscription-form" data-toggle="tooltip" data-placement="top" title="{{ trans('generals.cancel') }}" class="btn btn-default" type="submit"><i class="fa fa-times"></i></button>
                                     </form>
                                 </div>
                                 `
