@@ -248,8 +248,14 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('.summernote').summernote();
-            $('.note-btn-group.btn-group.note-insert').hide()
+            $('.summernote').summernote({
+                callbacks: {
+                    onImageUpload: function(files) {
+                        sendFile(files[0], $(this));
+                    }
+                }
+            });
+            // $('.note-btn-group.btn-group.note-insert').hide()
 
             $('table').DataTable({
                 processing: true,
