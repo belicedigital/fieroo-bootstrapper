@@ -1,7 +1,7 @@
 @extends('layouts/layoutMaster')
 @section('title', trans('entities.profile'))
 @section('title_header', trans('entities.profile'))
-@section('buttons')
+@section('button')
     <button id="spinner" class="btn btn-primary d-none">
         <span class="spinner-border spinner-border-sm"></span>
     </button>
