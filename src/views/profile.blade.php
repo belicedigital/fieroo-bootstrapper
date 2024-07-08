@@ -14,249 +14,237 @@
     @endif
 @endsection
 @section('content')
-    <div class="container-fluid">
-        @if ($errors->any())
-            @include('admin.partials.errors', ['errors' => $errors])
-        @endif
-
-        @if (Session::has('success'))
-            @include('admin.partials.success')
-        @endif
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            @if (auth()->user()->roles->first()->name == 'espositore')
-                                <div class="col-12 col-md-6">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">{{ trans('generals.generals') }}</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <strong>{{ trans('forms.email') }}</strong>
-                                                <input type="email" name="email"
-                                                    class="form-control @error('email') is-invalid @enderror"
-                                                    value="{{ $userData->email }}" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <strong>{{ trans('forms.exhibitor_form.exhibitor.company.name') }}
-                                                    *</strong>
-                                                <input type="text" name="company" class="form-control w-100"
-                                                    value="{{ $userData->company }}" required>
-                                            </div>
-
-                                            <div class="row form-inline mb-3">
-                                                <div class="form-group col-md-8">
-                                                    <strong>{{ trans('forms.exhibitor_form.exhibitor.company.address') }}
-                                                        *</strong>
-                                                    <input type="text" name="address" class="form-control w-100"
-                                                        value="{{ $userData->address }}" required>
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <strong>{{ trans('forms.exhibitor_form.exhibitor.company.civic_number') }}
-                                                        *</strong>
-                                                    <input type="text" name="civic_number" class="form-control w-100"
-                                                        value="{{ $userData->civic_number }}" required>
-                                                </div>
-                                            </div>
-                                            <div class="row form-inline mb-3">
-                                                <div class="form-group col-md-6">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.city') }}
-                                                        *</strong>
-                                                    <input type="text" name="city" class="form-control w-100"
-                                                        value="{{ $userData->city }}" required>
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.postal_code') }}
-                                                        *</strong>
-                                                    <input type="text" name="cap" class="form-control w-100"
-                                                        value="{{ $userData->cap }}" required>
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.province') }}
-                                                        *</strong>
-                                                    <input type="text" name="province" class="form-control w-100"
-                                                        value="{{ $userData->province }}" required>
-                                                </div>
-                                            </div>
-                                            <div class="row form-inline mb-3">
-                                                <div class="form-group col-md-3">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.phone') }}
-                                                        *</strong>
-                                                    <input type="text" name="phone" class="form-control w-100"
-                                                        value="{{ $userData->phone }}" required>
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.fax') }}</strong>
-                                                    <input type="text" name="fax" class="form-control w-100"
-                                                        value="{{ $userData->fax }}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.web') }}</strong>
-                                                    <input type="text" name="web" class="form-control w-100"
-                                                        value="{{ $userData->web }}">
-                                                </div>
-                                            </div>
-                                            <div class="row form-inline mb-3">
-                                                <div class="form-group col-md-6">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.responsible') }}
-                                                        *</strong>
-                                                    <input type="text" name="responsible" class="form-control w-100"
-                                                        value="{{ $userData->responsible }}" required>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.responsible_phone') }}
-                                                        *</strong>
-                                                    <input type="text" name="phone_responsible"
-                                                        class="form-control w-100"
-                                                        value="{{ $userData->phone_responsible }}" required>
-                                                </div>
-                                            </div>
-                                            <div class="row form-inline">
-                                                <div class="form-group col-md-4">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.fiscal_code') }}</strong>
-                                                    <input type="text" name="fiscal_code" class="form-control w-100"
-                                                        value="{{ $userData->fiscal_code }}">
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.vat_number') }}
-                                                        *</strong>
-                                                    <input type="text" name="vat_number" class="form-control w-100"
-                                                        value="{{ $userData->vat_number }}" required>
-                                                </div>
-                                                <div
-                                                    class="form-group col-md-4 {{ App::getLocale() == 'en' ? 'd-none' : '' }}">
-                                                    <strong>{{ __('forms.exhibitor_form.exhibitor.company.uni_code') }}
-                                                        *</strong>
-                                                    <input type="text" name="uni_code" class="form-control w-100"
-                                                        value="{{ $userData->uni_code }}" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        @if (auth()->user()->roles->first()->name == 'espositore')
                             <div class="col-12 col-md-6">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5 class="card-title">{{ trans('generals.change_password') }}</h5>
+                                        <h5 class="card-title">{{ trans('generals.generals') }}</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <strong>{{ trans('generals.current_password') }}</strong>
-                                            <input type="password" name="password"
-                                                class="form-control @error('password') is-invalid @enderror"
-                                                autocomplete="off">
+                                            <strong>{{ trans('forms.email') }}</strong>
+                                            <input type="email" name="email"
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                value="{{ $userData->email }}" required>
                                         </div>
+
                                         <div class="form-group">
-                                            <strong>{{ trans('generals.new_password') }}</strong>
-                                            <input type="password" name="new_password"
-                                                class="form-control @error('new_password') is-invalid @enderror"
-                                                autocomplete="off">
+                                            <strong>{{ trans('forms.exhibitor_form.exhibitor.company.name') }}
+                                                *</strong>
+                                            <input type="text" name="company" class="form-control w-100"
+                                                value="{{ $userData->company }}" required>
                                         </div>
-                                        <div class="form-group">
-                                            <strong>{{ trans('generals.confirm_password') }}</strong>
-                                            <input type="password" name="new_password_confirmation"
-                                                class="form-control @error('new_password_confirmation') is-invalid @enderror"
-                                                autocomplete="off">
+
+                                        <div class="row form-inline mb-3">
+                                            <div class="form-group col-md-8">
+                                                <strong>{{ trans('forms.exhibitor_form.exhibitor.company.address') }}
+                                                    *</strong>
+                                                <input type="text" name="address" class="form-control w-100"
+                                                    value="{{ $userData->address }}" required>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <strong>{{ trans('forms.exhibitor_form.exhibitor.company.civic_number') }}
+                                                    *</strong>
+                                                <input type="text" name="civic_number" class="form-control w-100"
+                                                    value="{{ $userData->civic_number }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="row form-inline mb-3">
+                                            <div class="form-group col-md-6">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.city') }}
+                                                    *</strong>
+                                                <input type="text" name="city" class="form-control w-100"
+                                                    value="{{ $userData->city }}" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.postal_code') }}
+                                                    *</strong>
+                                                <input type="text" name="cap" class="form-control w-100"
+                                                    value="{{ $userData->cap }}" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.province') }}
+                                                    *</strong>
+                                                <input type="text" name="province" class="form-control w-100"
+                                                    value="{{ $userData->province }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="row form-inline mb-3">
+                                            <div class="form-group col-md-3">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.phone') }}
+                                                    *</strong>
+                                                <input type="text" name="phone" class="form-control w-100"
+                                                    value="{{ $userData->phone }}" required>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.fax') }}</strong>
+                                                <input type="text" name="fax" class="form-control w-100"
+                                                    value="{{ $userData->fax }}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.web') }}</strong>
+                                                <input type="text" name="web" class="form-control w-100"
+                                                    value="{{ $userData->web }}">
+                                            </div>
+                                        </div>
+                                        <div class="row form-inline mb-3">
+                                            <div class="form-group col-md-6">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.responsible') }}
+                                                    *</strong>
+                                                <input type="text" name="responsible" class="form-control w-100"
+                                                    value="{{ $userData->responsible }}" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.responsible_phone') }}
+                                                    *</strong>
+                                                <input type="text" name="phone_responsible" class="form-control w-100"
+                                                    value="{{ $userData->phone_responsible }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="row form-inline">
+                                            <div class="form-group col-md-4">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.fiscal_code') }}</strong>
+                                                <input type="text" name="fiscal_code" class="form-control w-100"
+                                                    value="{{ $userData->fiscal_code }}">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.vat_number') }}
+                                                    *</strong>
+                                                <input type="text" name="vat_number" class="form-control w-100"
+                                                    value="{{ $userData->vat_number }}" required>
+                                            </div>
+                                            <div
+                                                class="form-group col-md-4 {{ App::getLocale() == 'en' ? 'd-none' : '' }}">
+                                                <strong>{{ __('forms.exhibitor_form.exhibitor.company.uni_code') }}
+                                                    *</strong>
+                                                <input type="text" name="uni_code" class="form-control w-100"
+                                                    value="{{ $userData->uni_code }}" required>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @if (auth()->user()->roles->first()->name == 'espositore')
-                                <div class="col-12 col-md-6">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">
-                                                {{ trans('forms.exhibitor_form.label_diff_billing_section') }}</h5>
+                        @endif
+                        <div class="col-12 col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">{{ trans('generals.change_password') }}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <strong>{{ trans('generals.current_password') }}</strong>
+                                        <input type="password" name="password"
+                                            class="form-control @error('password') is-invalid @enderror"
+                                            autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <strong>{{ trans('generals.new_password') }}</strong>
+                                        <input type="password" name="new_password"
+                                            class="form-control @error('new_password') is-invalid @enderror"
+                                            autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <strong>{{ trans('generals.confirm_password') }}</strong>
+                                        <input type="password" name="new_password_confirmation"
+                                            class="form-control @error('new_password_confirmation') is-invalid @enderror"
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (auth()->user()->roles->first()->name == 'espositore')
+                            <div class="col-12 col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">
+                                            {{ trans('forms.exhibitor_form.label_diff_billing_section') }}</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label
+                                                for="diff_billing">{{ __('forms.exhibitor_form.diff_billing') }}</label>
+                                            <select class="form-control" id="diff_billing" name="diff_billing">
+                                                <option value="no"
+                                                    {{ $userData->diff_billing == 0 ? 'selected' : '' }}>
+                                                    {{ __('generals.no') }}</option>
+                                                <option value="yes"
+                                                    {{ $userData->diff_billing == 1 ? 'selected' : '' }}>
+                                                    {{ __('generals.yes') }}</option>
+                                            </select>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label
-                                                    for="diff_billing">{{ __('forms.exhibitor_form.diff_billing') }}</label>
-                                                <select class="form-control" id="diff_billing" name="diff_billing">
-                                                    <option value="no"
-                                                        {{ $userData->diff_billing == 0 ? 'selected' : '' }}>
-                                                        {{ __('generals.no') }}</option>
-                                                    <option value="yes"
-                                                        {{ $userData->diff_billing == 1 ? 'selected' : '' }}>
-                                                        {{ __('generals.yes') }}</option>
-                                                </select>
+                                        <div class="{{ $userData->diff_billing == 0 ? 'd-none' : '' }}" data-billing>
+                                            <div class="row form-inline my-3">
+                                                <div class="form-group col-md-12">
+                                                    <strong>{{ __('forms.exhibitor_form.data_billing.heading') }}</strong>
+                                                    <input type="text" name="receiver" class="form-control w-100"
+                                                        value="{{ $userData->receiver }}">
+                                                </div>
                                             </div>
-                                            <div class="{{ $userData->diff_billing == 0 ? 'd-none' : '' }}" data-billing>
-                                                <div class="row form-inline my-3">
-                                                    <div class="form-group col-md-12">
-                                                        <strong>{{ __('forms.exhibitor_form.data_billing.heading') }}</strong>
-                                                        <input type="text" name="receiver" class="form-control w-100"
-                                                            value="{{ $userData->receiver }}">
-                                                    </div>
+                                            <div class="row form-inline mb-3">
+                                                <div class="form-group col-md-8">
+                                                    <strong>{{ __('forms.exhibitor_form.data_billing.address') }}</strong>
+                                                    <input type="text" name="receiver_address"
+                                                        class="form-control w-100"
+                                                        value="{{ $userData->receiver_address }}">
                                                 </div>
-                                                <div class="row form-inline mb-3">
-                                                    <div class="form-group col-md-8">
-                                                        <strong>{{ __('forms.exhibitor_form.data_billing.address') }}</strong>
-                                                        <input type="text" name="receiver_address"
-                                                            class="form-control w-100"
-                                                            value="{{ $userData->receiver_address }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <strong>{{ __('forms.exhibitor_form.data_billing.civic_number') }}</strong>
-                                                        <input type="text" name="receiver_civic_number"
-                                                            class="form-control w-100"
-                                                            value="{{ $userData->receiver_civic_number }}">
-                                                    </div>
+                                                <div class="form-group col-md-4">
+                                                    <strong>{{ __('forms.exhibitor_form.data_billing.civic_number') }}</strong>
+                                                    <input type="text" name="receiver_civic_number"
+                                                        class="form-control w-100"
+                                                        value="{{ $userData->receiver_civic_number }}">
                                                 </div>
-                                                <div class="row form-inline mb-3">
-                                                    <div class="form-group col-md-6">
-                                                        <strong>{{ __('forms.exhibitor_form.data_billing.city') }}</strong>
-                                                        <input type="text" name="receiver_city"
-                                                            class="form-control w-100"
-                                                            value="{{ $userData->receiver_city }}">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <strong>{{ __('forms.exhibitor_form.data_billing.postal_code') }}</strong>
-                                                        <input type="text" name="receiver_cap"
-                                                            class="form-control w-100"
-                                                            value="{{ $userData->receiver_cap }}">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <strong>{{ __('forms.exhibitor_form.data_billing.province') }}</strong>
-                                                        <input type="text" name="receiver_province"
-                                                            class="form-control w-100"
-                                                            value="{{ $userData->receiver_province }}">
-                                                    </div>
+                                            </div>
+                                            <div class="row form-inline mb-3">
+                                                <div class="form-group col-md-6">
+                                                    <strong>{{ __('forms.exhibitor_form.data_billing.city') }}</strong>
+                                                    <input type="text" name="receiver_city" class="form-control w-100"
+                                                        value="{{ $userData->receiver_city }}">
                                                 </div>
-                                                <div class="row form-inline">
-                                                    <div class="form-group col-md-4">
-                                                        <strong>{{ __('forms.exhibitor_form.data_billing.fiscal_code') }}</strong>
-                                                        <input type="text" name="receiver_fiscal_code"
-                                                            class="form-control w-100"
-                                                            value="{{ $userData->receiver_fiscal_code }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <strong>{{ __('forms.exhibitor_form.data_billing.vat_number') }}
-                                                            *</strong>
-                                                        <input type="text" name="receiver_vat_number"
-                                                            class="form-control w-100"
-                                                            value="{{ $userData->receiver_vat_number }}">
-                                                    </div>
-                                                    <div
-                                                        class="form-group col-md-4 {{ App::getLocale() == 'en' ? 'd-none' : '' }}">
-                                                        <strong>{{ __('forms.exhibitor_form.data_billing.uni_code') }}
-                                                            *</strong>
-                                                        <input type="text" name="receiver_uni_code"
-                                                            class="form-control w-100"
-                                                            value="{{ $userData->receiver_uni_code }}">
-                                                    </div>
+                                                <div class="form-group col-md-3">
+                                                    <strong>{{ __('forms.exhibitor_form.data_billing.postal_code') }}</strong>
+                                                    <input type="text" name="receiver_cap" class="form-control w-100"
+                                                        value="{{ $userData->receiver_cap }}">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <strong>{{ __('forms.exhibitor_form.data_billing.province') }}</strong>
+                                                    <input type="text" name="receiver_province"
+                                                        class="form-control w-100"
+                                                        value="{{ $userData->receiver_province }}">
+                                                </div>
+                                            </div>
+                                            <div class="row form-inline">
+                                                <div class="form-group col-md-4">
+                                                    <strong>{{ __('forms.exhibitor_form.data_billing.fiscal_code') }}</strong>
+                                                    <input type="text" name="receiver_fiscal_code"
+                                                        class="form-control w-100"
+                                                        value="{{ $userData->receiver_fiscal_code }}">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <strong>{{ __('forms.exhibitor_form.data_billing.vat_number') }}
+                                                        *</strong>
+                                                    <input type="text" name="receiver_vat_number"
+                                                        class="form-control w-100"
+                                                        value="{{ $userData->receiver_vat_number }}">
+                                                </div>
+                                                <div
+                                                    class="form-group col-md-4 {{ App::getLocale() == 'en' ? 'd-none' : '' }}">
+                                                    <strong>{{ __('forms.exhibitor_form.data_billing.uni_code') }}
+                                                        *</strong>
+                                                    <input type="text" name="receiver_uni_code"
+                                                        class="form-control w-100"
+                                                        value="{{ $userData->receiver_uni_code }}">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endif
-                        </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
