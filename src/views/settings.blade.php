@@ -327,9 +327,7 @@
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
         const editors = document.querySelectorAll('.quillEditor');
-        initEditors(editors, 'save-settings-emails')
-
-        initEditorContents({
+        initEditors(editors, 'save-settings-emails', {
             email_pending_admit_exhibitor_it: {!! json_encode($settings->email_pending_admit_exhibitor_it) !!},
             email_pending_admit_exhibitor_en: {!! json_encode($settings->email_pending_admit_exhibitor_en) !!},
             email_to_admin_pending_notification_admit: {!! json_encode($settings->email_to_admin_pending_notification_admit) !!},
@@ -346,6 +344,24 @@
             email_remarketing_it: {!! json_encode($settings->email_remarketing_it) !!},
             email_remarketing_en: {!! json_encode($settings->email_remarketing_en) !!},
         })
+
+        // initEditorContents({
+        //     email_pending_admit_exhibitor_it: {!! json_encode($settings->email_pending_admit_exhibitor_it) !!},
+        //     email_pending_admit_exhibitor_en: {!! json_encode($settings->email_pending_admit_exhibitor_en) !!},
+        //     email_to_admin_pending_notification_admit: {!! json_encode($settings->email_to_admin_pending_notification_admit) !!},
+        //     email_admit_exhibitor_it: {!! json_encode($settings->email_admit_exhibitor_it) !!},
+        //     email_admit_exhibitor_en: {!! json_encode($settings->email_admit_exhibitor_en) !!},
+        //     email_to_admin_notification_admit: {!! json_encode($settings->email_to_admin_notification_admit) !!},
+        //     email_confirm_order_it: {!! json_encode($settings->email_confirm_order_it) !!},
+        //     email_confirm_order_en: {!! json_encode($settings->email_confirm_order_en) !!},
+        //     email_to_admin_notification_confirm_order: {!! json_encode($settings->email_to_admin_notification_confirm_order) !!},
+        //     email_event_subscription_it: {!! json_encode($settings->email_event_subscription_it) !!},
+        //     email_event_subscription_en: {!! json_encode($settings->email_event_subscription_en) !!},
+        //     email_registration_it: {!! json_encode($settings->email_registration_it) !!},
+        //     email_registration_en: {!! json_encode($settings->email_registration_en) !!},
+        //     email_remarketing_it: {!! json_encode($settings->email_remarketing_it) !!},
+        //     email_remarketing_en: {!! json_encode($settings->email_remarketing_en) !!},
+        // })
 
         // function createEditor(id) {
         //     const quill = new Quill(id, {
