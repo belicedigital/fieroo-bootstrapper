@@ -327,7 +327,7 @@
     <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
         const editors = document.querySelectorAll('.quillEditor');
-        initEditors(editors, 'myForm', {
+        initEditors(editors, 'save-settings-emails', {
             email_pending_admit_exhibitor_it: {!! json_encode($settings->email_pending_admit_exhibitor_it) !!},
             email_pending_admit_exhibitor_en: {!! json_encode($settings->email_pending_admit_exhibitor_en) !!},
             email_to_admin_pending_notification_admit: {!! json_encode($settings->email_to_admin_pending_notification_admit) !!},
