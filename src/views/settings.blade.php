@@ -105,7 +105,7 @@
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_pending_admit_exhibitor_it') }}</label>
                                                                             <div name="email_pending_admit_exhibitor_it"
-                                                                                class = "summernote"
+                                                                                class="form-control quillEditor"
                                                                                 id="email_pending_admit_exhibitor_it">
                                                                                 {!! $settings->email_pending_admit_exhibitor_it !!}
                                                                             </div>
@@ -113,15 +113,16 @@
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_pending_admit_exhibitor_en') }}</label>
                                                                             <div name="email_pending_admit_exhibitor_en"
-                                                                                class="form-control summernote"
+                                                                                class="form-control quillEditor"
                                                                                 id="email_pending_admit_exhibitor_en">
                                                                                 {!! $settings->email_pending_admit_exhibitor_en !!}</div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_to_admin_pending_notification_admit') }}</label>
                                                                             <div name="email_to_admin_pending_notification_admit"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_to_admin_pending_notification_admit !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_to_admin_pending_notification_admit">
+                                                                                {!! $settings->email_to_admin_pending_notification_admit !!}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -135,22 +136,25 @@
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_admit_exhibitor_it') }}</label>
                                                                             <div name="email_admit_exhibitor_it"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_admit_exhibitor_it !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_admit_exhibitor_it">
+                                                                                {!! $settings->email_admit_exhibitor_it !!}
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_admit_exhibitor_en') }}</label>
                                                                             <div name="email_admit_exhibitor_en"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_admit_exhibitor_en !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_admit_exhibitor_en">
+                                                                                {!! $settings->email_admit_exhibitor_en !!}
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_to_admin_notification_admit') }}</label>
                                                                             <div name="email_to_admin_notification_admit"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_to_admin_notification_admit !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_to_admin_notification_admit">
+                                                                                {!! $settings->email_to_admin_notification_admit !!}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -163,22 +167,25 @@
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_confirm_order_it') }}</label>
                                                                             <div name="email_confirm_order_it"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_confirm_order_it !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_confirm_order_it">
+                                                                                {!! $settings->email_confirm_order_it !!}
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_confirm_order_en') }}</label>
                                                                             <div name="email_confirm_order_en"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_confirm_order_en !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_confirm_order_en">
+                                                                                {!! $settings->email_confirm_order_en !!}
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_to_admin_notification_confirm_order') }}</label>
                                                                             <div name="email_to_admin_notification_confirm_order"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_to_admin_notification_confirm_order !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_to_admin_notification_confirm_order">
+                                                                                {!! $settings->email_to_admin_notification_confirm_order !!}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -192,15 +199,17 @@
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_event_subscription_it') }}</label>
                                                                             <div name="email_event_subscription_it"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_event_subscription_it !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_event_subscription_it">
+                                                                                {!! $settings->email_event_subscription_it !!}
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_event_subscription_en') }}</label>
                                                                             <div name="email_event_subscription_en"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_event_subscription_en !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_event_subscription_en">
+                                                                                {!! $settings->email_event_subscription_en !!}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -213,15 +222,17 @@
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_registration_it') }}</label>
                                                                             <div name="email_registration_it"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_registration_it !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_registration_it">
+                                                                                {!! $settings->email_registration_it !!}
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_registration_en') }}</label>
                                                                             <div name="email_registration_en"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_registration_en !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_registration_en">
+                                                                                {!! $settings->email_registration_en !!}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -234,15 +245,17 @@
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_remarketing_it') }}</label>
                                                                             <div name="email_remarketing_it"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_remarketing_it !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_remarketing_it">
+                                                                                {!! $settings->email_remarketing_it !!}
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label>{{ trans('forms.text_email_remarketing_en') }}</label>
                                                                             <div name="email_remarketing_en"
-                                                                                class="form-control summernote"
-                                                                                rows="10">{!! $settings->email_remarketing_en !!}
+                                                                                class="form-control quillEditor"
+                                                                                id="email_remarketing_en">
+                                                                                {!! $settings->email_remarketing_en !!}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -311,94 +324,26 @@
 @endsection
 
 @section('page-script')
+    <script src="{{ asset('assets/js/text-editor.js') }}"></script>
     <script>
-        function createEditor(id) {
-            const quill = new Quill(id, {
-                modules: {
-                    toolbar: [
-                        [{
-                            header: [1, 2, false]
-                        }],
-                        ['bold', 'italic', 'underline'],
-                    ],
-                },
-                theme: 'snow', // or 'bubble'
-            });
-            return quill;
-        }
-        const editors = document.querySelectorAll('.summernote');
-        const quills = [];
-        editors.forEach(editor => {
-            quills.push(createEditor(editor));
-        });
-
-        // send quill data to textarea
-        const form = document.getElementById('save-settings-emails');
-        form.addEventListener('formdata', (event) => {
-            quills.forEach((quill, i) => {
-                event.formData.append(editors[i].getAttribute('name'), JSON.stringify(quill.getContents()));
-            });
-        });
-
-        let oldValue = {!! json_encode($settings->email_pending_admit_exhibitor_it) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[0].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_pending_admit_exhibitor_en) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[1].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_to_admin_pending_notification_admit) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[2].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_admit_exhibitor_it) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[3].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_admit_exhibitor_en) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[4].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_to_admin_notification_admit) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[5].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_confirm_order_it) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[6].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_confirm_order_en) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[7].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_to_admin_notification_confirm_order) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[8].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_event_subscription_it) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[9].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_event_subscription_en) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[10].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_registration_it) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[11].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_registration_en) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[12].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_remarketing_it) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[13].setContents(oldValue);
-
-        oldValue = {!! json_encode($settings->email_remarketing_en) !!};
-        oldValue = JSON.parse(oldValue);
-        quills[14].setContents(oldValue);
+        const editors = document.querySelectorAll('.quillEditor');
+        initEditors(editors, 'myForm', {
+            email_pending_admit_exhibitor_it: {!! json_encode($settings->email_pending_admit_exhibitor_it) !!},
+            email_pending_admit_exhibitor_en: {!! json_encode($settings->email_pending_admit_exhibitor_en) !!},
+            email_to_admin_pending_notification_admit: {!! json_encode($settings->email_to_admin_pending_notification_admit) !!},
+            email_admit_exhibitor_it: {!! json_encode($settings->email_admit_exhibitor_it) !!},
+            email_admit_exhibitor_en: {!! json_encode($settings->email_admit_exhibitor_en) !!},
+            email_to_admin_notification_admit: {!! json_encode($settings->email_to_admin_notification_admit) !!},
+            email_confirm_order_it: {!! json_encode($settings->email_confirm_order_it) !!},
+            email_confirm_order_en: {!! json_encode($settings->email_confirm_order_en) !!},
+            email_to_admin_notification_confirm_order: {!! json_encode($settings->email_to_admin_notification_confirm_order) !!},
+            email_event_subscription_it: {!! json_encode($settings->email_event_subscription_it) !!},
+            email_event_subscription_en: {!! json_encode($settings->email_event_subscription_en) !!},
+            email_registration_it: {!! json_encode($settings->email_registration_it) !!},
+            email_registration_en: {!! json_encode($settings->email_registration_en) !!},
+            email_remarketing_it: {!! json_encode($settings->email_remarketing_it) !!},
+            email_remarketing_en: {!! json_encode($settings->email_remarketing_en) !!},
+        })
 
         $(document).ready(function() {
             $('table').DataTable({
