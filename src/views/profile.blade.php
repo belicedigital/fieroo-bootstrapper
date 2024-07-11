@@ -251,7 +251,16 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+
+@section('vendor-style')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/toastr/toastr.css') }}" />
+@endsection
+
+@section('vendor-script')
+    <script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
+@endsection
+
+@section('page-script')
     <script>
         const updatePsw = (el) => {
             $(el).toggleClass('d-none');
