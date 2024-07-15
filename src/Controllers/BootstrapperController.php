@@ -16,6 +16,11 @@ class BootstrapperController extends Controller
         ];
 
         try {
+            
+            if (!view()->exists('bootstrapper::emails.form-data')) {
+                throw new \Exception('Email view does not exist');
+            }
+
             Mail::send('bootstrapper::emails.form-data', ['data' => $data], function ($m) use ($emailFrom, $emailTo, $subject, $pdfContent, $pdfFileName){
                 $m->from($emailFrom, env('MAIL_FROM_NAME'));
                 $m->to($emailTo)->subject(env('APP_NAME').' '.$subject);
