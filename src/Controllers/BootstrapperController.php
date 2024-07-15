@@ -25,11 +25,11 @@ class BootstrapperController extends Controller
                 $m->from($emailFrom, env('MAIL_FROM_NAME'));
                 $m->to($emailTo)->subject(env('APP_NAME').' '.$subject);
                 // Attach PDF
-                // if ($pdfContent && $pdfFileName) {
-                //     $m->attachData($pdfContent, $pdfFileName, [
-                //         'mime' => 'application/pdf',
-                //     ]);
-                // }
+                if ($pdfContent && $pdfFileName) {
+                    $m->attachData($pdfContent, $pdfFileName, [
+                        'mime' => 'application/pdf',
+                    ]);
+                }
             });
         } catch(\Exception $e) {
             throw $e;
