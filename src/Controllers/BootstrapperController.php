@@ -10,7 +10,9 @@ class BootstrapperController extends Controller
     public function sendEmail($subject, $emailFormatData, $emailTemplate, $emailFrom, $emailTo, $pdfContent = null, $pdfFileName= null)
     {
         $body = formatDataForEmail($emailFormatData, $emailTemplate);
-
+        if(!is_string($body)) {
+            dd('non è una stringa');
+        }
         $data = [
             'body' => $body
         ];
