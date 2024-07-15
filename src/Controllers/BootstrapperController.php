@@ -15,7 +15,7 @@ class BootstrapperController extends Controller
             'body' => $body
         ];
 
-        Mail::send('emails.form-data', ['data' => $data], function ($m) use ($emailFrom, $emailTo, $subject, $pdfContent, $pdfFileName){
+        Mail::send('bootstrapper::emails.form-data', ['data' => $data], function ($m) use ($emailFrom, $emailTo, $subject, $pdfContent, $pdfFileName){
             $m->from($emailFrom, env('MAIL_FROM_NAME'));
             $m->to($emailTo)->subject(env('APP_NAME').' '.$subject);
             // Attach PDF

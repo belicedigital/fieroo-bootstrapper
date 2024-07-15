@@ -130,7 +130,7 @@ class AccountController extends Controller
                     $email_from = env('MAIL_FROM_ADDRESS');
                     $email_to = env('CUSTOMER_EMAIL');
                     $subject = trans('emails.exhibitors_limit', [], $request->localization);
-                    Mail::send('emails.notify-to-exhibitors-limit', [], function ($m) use ($email_from, $email_to, $subject) {
+                    Mail::send('bootstrapper::emails.notify-to-exhibitors-limit', [], function ($m) use ($email_from, $email_to, $subject) {
                         $m->from($email_from, env('MAIL_FROM_NAME'));
                         $m->to($email_to)->subject(env('APP_NAME').' '.$subject);
                     });
