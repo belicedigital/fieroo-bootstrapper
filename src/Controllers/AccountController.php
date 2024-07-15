@@ -150,7 +150,7 @@ class AccountController extends Controller
             $subject = trans('emails.register', [], $request->localization);
             $email_from = env('MAIL_FROM_ADDRESS');
             $email_to = $request->email;
-            Mail::send('emails.form-data', ['data' => $data], function ($m) use ($email_from, $email_to, $subject) {
+            Mail::send('bootstrapper::emails.form-data', ['data' => $data], function ($m) use ($email_from, $email_to, $subject) {
                 $m->from($email_from, env('MAIL_FROM_NAME'));
                 $m->to($email_to)->subject(env('APP_NAME').' '.$subject);
             });
