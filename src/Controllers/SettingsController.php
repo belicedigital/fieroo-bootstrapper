@@ -56,7 +56,7 @@ class SettingsController extends Controller
                     unlink(public_path($settings->logo_path));
                 }
                 $image = $request->file('file');
-                $rename_file = time().'.'.$request->file->getClientOriginalExtension();
+                $rename_file = 'logo_app.'.$request->file->getClientOriginalExtension();
                 $request->file->move(public_path('/img'), $rename_file);
                 $data['logo_path'] = 'img/'.$rename_file;
             }
