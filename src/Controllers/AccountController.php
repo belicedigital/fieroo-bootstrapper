@@ -88,7 +88,8 @@ class AccountController extends Controller
             $validation_data = [
                 'email' => ['required', 'email', 'unique:exhibitors_data,email_responsible', 'unique:users,email'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
-                'localization' => ['required', 'string', 'max:2']
+                'localization' => ['required', 'string', 'max:2'],
+                'category' => ['string', 'exists:categories,name'],
             ];
     
             $validator = Validator::make($request->all(), $validation_data);
@@ -118,9 +119,15 @@ class AccountController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);
+            $category = Category::where('name', $request->category)->first();
+            $category_id = null;
+            if(is_object($category)) {
+                $category_id = $category->id;
+            }
             $exhibitor = Exhibitor::create([
                 'user_id' => $user->id,
-                'locale' => $request->localization
+                'locale' => $request->localization,
+                'category_id' => $category_id,
             ]);
             $user->assignRole('espositore') && $user->givePermissionTo('expo');
 
