@@ -8,6 +8,7 @@ use Fieroo\Bootstrapper\Models\Setting;
 use Fieroo\Bootstrapper\Models\User;
 use Spatie\Permission\Models\Permission;
 use Fieroo\Exhibitors\Models\Exhibitor;
+use Fieroo\Exhibitors\Models\Category;
 use Session;
 use DB;
 use Validator;
