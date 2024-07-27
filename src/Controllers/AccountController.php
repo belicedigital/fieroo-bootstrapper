@@ -84,6 +84,8 @@ class AccountController extends Controller
     public function registerExhibitor(Request $request)
     {
         try {
+
+            dd($request);
             $validation_data = [
                 'email' => ['required', 'email', 'unique:exhibitors_data,email_responsible', 'unique:users,email'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
