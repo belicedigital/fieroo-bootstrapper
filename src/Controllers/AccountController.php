@@ -84,8 +84,6 @@ class AccountController extends Controller
     public function registerExhibitor(Request $request)
     {
         try {
-
-            dd($request);
             $validation_data = [
                 'email' => ['required', 'email', 'unique:exhibitors_data,email_responsible', 'unique:users,email'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -120,6 +118,7 @@ class AccountController extends Controller
                 'password' => Hash::make($request->password)
             ]);
             $category = Category::where('slug', $request->category)->first();
+            dd($category);
             $category_id = null;
             if(is_object($category)) {
                 $category_id = $category->id;
