@@ -118,7 +118,6 @@ class AccountController extends Controller
                 'password' => Hash::make($request->password)
             ]);
             $category = Category::where('slug', $request->category)->first();
-            dd($category);
             $category_id = null;
             if(is_object($category)) {
                 $category_id = $category->id;
