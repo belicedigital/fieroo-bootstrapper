@@ -3,6 +3,7 @@
 namespace Fieroo\Bootstrapper\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use Fieroo\Bootstrapper\Models\Setting;
 use Fieroo\Bootstrapper\Models\User;
@@ -10,14 +11,11 @@ use Spatie\Permission\Models\Permission;
 use Fieroo\Exhibitors\Models\Exhibitor;
 use Fieroo\Exhibitors\Models\Category;
 use Session;
-use DB;
 use Validator;
 use Hash;
 use Auth;
 use Mail;
-use Response;
 use App;
-use Illuminate\Support\Facades\Http;
 
 class AccountController extends Controller
 {
@@ -90,7 +88,6 @@ class AccountController extends Controller
                 'email' => ['required', 'email', 'unique:exhibitors_data,email_responsible', 'unique:users,email'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
                 'localization' => ['required', 'string', 'max:2'],
-                'category' => ['string', 'exists:categories,name'],
             ];
     
             $validator = Validator::make($request->all(), $validation_data);
@@ -120,7 +117,7 @@ class AccountController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);
-            $category = Category::where('name', $request->category)->first();
+            $category = Category::where('slug', $request->category)->first();
             $category_id = null;
             if(is_object($category)) {
                 $category_id = $category->id;
